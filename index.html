@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class="zoom_header">
+        <div>
+            <img src="GEA-logo.png" alt="">
+        </div>
+        <div class="control_container">
+            <h3>ZOOM</h3>
+            <button id="zoom-in"> <i class="fa fa-plus"></i> </button>
+            <button id="zoom-out"> <i class="fa fa-minus"></i> </button>
+            <button id="info" onclick="infoClicked()"> <i class="fa fa-info"></i>
+                <div class="rectangle hide"></div>
+                <div class="info_container hide">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis sequi perspiciatis minima,
+                        neque ipsa unde doloremque, quae ea commodi fugit dolorem, distinctio laboriosam ab ipsam!
+                        Itaque id cum ducimus vero?</p>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="details hideDetails">
+        <h1>Man in Oriental Costume (possibly the Old Testament Patriarch Dan)</h1>
+        <h2>Workshop of Rembrandt van Rijn (possibly Ferdinand Bol)</h2>
+        <span>
+            164(1?) <br><br>
+            oil on panel <br><br>
+            103.1 x 83.5 cm <br><br>
+            signed and dated in dark paint, lower left: “Rembrandt : / f. 164(1?)” <br><br>
+            RR-125 <br><br>
+        </span>
+        <a href="">View Full Entry</a>
+        <button class="btn hide" onclick="hideDetails()" id="hideDetails"><i class="fa fa-minus-circle"></i>Hide
+            Details</button>
+    </div>
+    <button class="btn" id="showDetails" onclick="showDetails()"> <i class="fa fa-plus-circle"></i> Show
+        Details</button>
+    <div id="seadragon-viewer" style="width:100%; height:88vh;"></div>
+
+    <script src="//openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
+    <script>
+        let duomo = {
+            type: 'image',
+            url: 'https://graphy101.s3.us-west-1.amazonaws.com/complete_im_1.jpeg',
+
+        }
+        let dzi = "complete_im_1.dzi"
+        var viewer = OpenSeadragon({
+            id: "seadragon-viewer",
+            prefixUrl: "//openseadragon.github.io/openseadragon/images/",
+            visibilityRatio: 1.0,
+            zoomInButton: "zoom-in",
+            zoomOutButton: "zoom-out",
+            homeButton: "home",
+            constrainDuringPan: true,
+            defaultZoomLevel: 0.5,
+            minZoomLevel: 0.5,
+            // maxZoomLevel: 2,
+            visibilityRatio: 1,
+
+            tileSources: dzi,
+
+        });
+        function infoClicked() {
+            document.querySelector(".info_container").classList.toggle("hide")
+            document.querySelector(".rectangle").classList.toggle("hide")
+        }
+        function hideDetails() {
+            document.querySelector("#showDetails").classList.toggle("hide")
+            document.querySelector("#hideDetails").classList.toggle("hide")
+            document.querySelector(".details").classList.toggle("hideDetails")
+            setTimeout(() => {
+                document.querySelector(".details").classList.add("hide")
+            }, 500);
+        }
+        function showDetails() {
+            document.querySelector(".details").classList.remove("hide")
+            setTimeout(() => {
+                document.querySelector("#showDetails").classList.toggle("hide")
+                document.querySelector("#hideDetails").classList.toggle("hide")
+                document.querySelector(".details").classList.toggle("hideDetails")
+            }, 10);
+
+        }
+        viewer.gestureSettingsMouse.clickToZoom = false
+        document.querySelector(".openseadragon-container").style.backgroundColor = "rgb(26, 26, 26)"
+        document.querySelector(".openseadragon-canvas").style.backgroundColor = "rgb(26, 26, 26)"
+    </script>
+</body>
+
+</html>
